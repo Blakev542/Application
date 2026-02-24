@@ -24,6 +24,7 @@ import requests, sys, os
 
 class ExcelCombinerApp:
     def __init__(self, root):
+        self.auto_update()
         self.root = root
         self.root.title("Excel Column Combiner")
         self.files = []
@@ -48,10 +49,10 @@ class ExcelCombinerApp:
     
     
     # ________________ AUTO UPDATE _________________ #
-    def auto_update():
+    def auto_update(self):
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
         exe_path = sys.executable
-        temp_path = exe_path + ".new"
+        temp_path = exe_path + "-new"
 
         try:
             r = requests.get(latest_url, stream=True)
@@ -62,6 +63,7 @@ class ExcelCombinerApp:
 
                 os.replace(temp_path, exe_path)  # replace old EXE
                 os.execv(exe_path, sys.argv)     # restart new EXE
+            
         except Exception as e:
             print("Update failed:", e)
 
@@ -114,7 +116,7 @@ class ExcelCombinerApp:
         # COLUMN LIST BOX __________________________________________________________________
 
         self.column_listbox = tk.Listbox(left_panel,selectmode="multiple", height=90,           
-            bg="#333333",        # background
+            bg="#CCFF00",        # background
             fg="white",          # text color
             font=("Segoe UI", 16),
             selectbackground="#1f6aa5",   # highlight color
