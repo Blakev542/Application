@@ -52,25 +52,22 @@ class ExcelCombinerApp:
     def auto_update(self):
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
         exe_path = sys.executable
-        print(exe_path)
-        part_1, part_2 = exe_path.split(".exe")
-        temp_path = part_1 + "2.exe"
-     
+        temp_path = exe_path.replace(".exe", "_new.exe")
 
         try:
             r = requests.get(latest_url, stream=True)
             if r.status_code == 200:
                 with open(temp_path, "wb") as f:
-                    for chunk in r.iter_content(1024*1024):
+                    for chunk in r.iter_content(1024 * 1024):
                         f.write(chunk)
 
-                os.replace(temp_path, exe_path)  # replace old EXE
-                os.execv(exe_path, sys.argv)     # restart new EXE
-            
+                # launch updater helper
+                os.startfile(f'updater.exe "{exe_path}" "{temp_path}"')
+                sys.exit()   # exit main program
+
         except Exception as e:
             print("Update failed:", e)
-
-        # ---------------- UI ----------------
+            # ---------------- UI ----------------
 
     def build_ui(self):
         style = ttk.Style()
