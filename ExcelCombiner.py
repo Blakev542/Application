@@ -15,7 +15,7 @@ from openpyxl.utils import get_column_letter
 import xlsxwriter 
 import customtkinter as ctk
 import CTkListbox as ctklb
-
+import requests, sys, os
 
 
 
@@ -44,7 +44,29 @@ class ExcelCombinerApp:
         ) 
         self.hover_index = None
         self.inlistbox = False
+
+    
+    
+    # ________________ AUTO UPDATE _________________ #
+    def auto_update():
+        latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
+        exe_path = sys.executable
+        temp_path = exe_path + ".new"
+
+        try:
+            r = requests.get(latest_url, stream=True)
+            if r.status_code == 200:
+                with open(temp_path, "wb") as f:
+                    for chunk in r.iter_content(1024*1024):
+                        f.write(chunk)
+
+                os.replace(temp_path, exe_path)  # replace old EXE
+                os.execv(exe_path, sys.argv)     # restart new EXE
+        except Exception as e:
+            print("Update failed:", e)
+
         # ---------------- UI ----------------
+
     def build_ui(self):
         style = ttk.Style()
         style.theme_use("default")
