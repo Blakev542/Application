@@ -64,7 +64,14 @@ class ExcelCombinerApp:
 
                 # launch updater helper
                 subprocess.Popen([sys.executable, "-c",
-                    f"import time, os; time.sleep(1); os.replace(r'{temp_path}', r'{exe_path}'); os.startfile(r'{exe_path}')"
+                    f"""
+                import time, os
+                time.sleep(1)
+                os.replace(r'{temp_path}', r'{exe_path}')
+                # Optionally delete temp or backup files if needed
+                # os.remove(r'{temp_path}')  # temp_path is already replaced
+                os.startfile(r'{exe_path}')
+                """
                 ])
                 sys.exit()
 
