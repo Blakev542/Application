@@ -73,7 +73,7 @@ class ExcelCombinerApp:
         style = ttk.Style()
         style.theme_use("default")
         style.configure("Treeview",
-                        background="#ec0000",
+                        background="2b2b2b",
                         foreground="#FFFFFF",
                         fieldbackground="#2b2b2b",
                         rowheight=25
