@@ -129,7 +129,7 @@ class ExcelCombinerApp:
             bg="#444348",        # background
             fg="white",          # text color
             font=("Segoe UI", 16),
-            selectbackground="#1f6aa5",   # highlight color
+            selectbackground="#a51f1f",   # highlight color
             selectforeground="black",     # text color when selected
             activestyle="none")
         self.column_listbox.pack(fill="both", pady=5,)
