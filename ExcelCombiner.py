@@ -52,6 +52,7 @@ class ExcelCombinerApp:
     def auto_update(self):
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
         exe_path = sys.executable
+        print(exe_path)
         temp_path = exe_path  
 
         try:
@@ -73,7 +74,7 @@ class ExcelCombinerApp:
         style = ttk.Style()
         style.theme_use("default")
         style.configure("Treeview",
-                        background="2b2b2b",
+                        background="#2b2b2b",
                         foreground="#FFFFFF",
                         fieldbackground="#2b2b2b",
                         rowheight=25
@@ -116,7 +117,7 @@ class ExcelCombinerApp:
         # COLUMN LIST BOX __________________________________________________________________
 
         self.column_listbox = tk.Listbox(left_panel,selectmode="multiple", height=90,           
-            bg="#CCFF00",        # background
+            bg="#FF0000",        # background
             fg="white",          # text color
             font=("Segoe UI", 16),
             selectbackground="#1f6aa5",   # highlight color
