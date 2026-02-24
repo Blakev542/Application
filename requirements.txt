@@ -1,11 +1,7 @@
 pandas
 openpyxl
-tkinter 
-numpy 
-datetime 
-xlsxwriter 
+numpy
+xlsxwriter
 customtkinter
 CTkListbox
 requests
-sys
-os
