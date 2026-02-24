@@ -9,28 +9,28 @@ jobs:
     runs-on: windows-latest
 
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-    - name: Set up Python
-      uses: actions/setup-python@v5
-      with:
-        python-version: "3.11"
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
 
-    - name: Install dependencies
-      run: |
-        pip install pyinstaller
-        pip install -r requirements.txt
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller
+          pip install -r requirements.txt
 
-    - name: Build EXE
-      run: |
-        pyinstaller --onefile --windowed excel_combiner.py
+      - name: Build EXE
+        run: |
+          pyinstaller --onefile --windowed excel_combiner.py
 
-    - name: Upload Release
-      uses: softprops/action-gh-release@v1
-      with:
-        tag_name: latest
-        name: Latest Build
-        files: dist/excel_combiner.exe
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: auto-${{ github.run_number }}
+          name: Auto Build ${{ github.run_number }}
+          files: dist/excel_combiner.exe
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
