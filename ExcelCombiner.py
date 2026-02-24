@@ -53,7 +53,9 @@ class ExcelCombinerApp:
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
         exe_path = sys.executable
         print(exe_path)
-        temp_path = exe_path  
+        part_1, part_2 = exe_path.split(".exe")
+        temp_path = part_1 + "2.exe"
+     
 
         try:
             r = requests.get(latest_url, stream=True)
