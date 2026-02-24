@@ -5,3 +5,4 @@ xlsxwriter
 customtkinter
 CTkListbox
 requests
+tkcalendar

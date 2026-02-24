@@ -16,6 +16,7 @@ import xlsxwriter
 import customtkinter as ctk
 import CTkListbox as ctklb
 import requests, sys, os
+import subprocess
 
 
 
@@ -62,8 +63,10 @@ class ExcelCombinerApp:
                         f.write(chunk)
 
                 # launch updater helper
-                os.startfile(f'updater.exe "{exe_path}" "{temp_path}"')
-                sys.exit()   # exit main program
+                subprocess.Popen([sys.executable, "-c",
+                    f"import time, os; time.sleep(1); os.replace(r'{temp_path}', r'{exe_path}'); os.startfile(r'{exe_path}')"
+                ])
+                sys.exit()
 
         except Exception as e:
             print("Update failed:", e)
