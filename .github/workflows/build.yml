@@ -24,13 +24,13 @@ jobs:
 
       - name: Build EXE
         run: |
-          pyinstaller --onefile --windowed excel_combiner.py
+          pyinstaller --onefile --windowed ExcelCombiner.py
 
       - name: Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: auto-${{ github.run_number }}
           name: Auto Build ${{ github.run_number }}
-          files: dist/excel_combiner.exe
+          files: dist/ExcelCombiner.exe
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
