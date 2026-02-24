@@ -119,7 +119,7 @@ class ExcelCombinerApp:
         # COLUMN LIST BOX __________________________________________________________________
 
         self.column_listbox = tk.Listbox(left_panel,selectmode="multiple", height=90,           
-            bg="#2F00FF",        # background
+            bg="#444348",        # background
             fg="white",          # text color
             font=("Segoe UI", 16),
             selectbackground="#1f6aa5",   # highlight color
