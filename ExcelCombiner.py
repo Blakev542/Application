@@ -52,7 +52,7 @@ class ExcelCombinerApp:
     def auto_update(self):
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
         exe_path = sys.executable
-        temp_path = exe_path + "-new"
+        temp_path = exe_path  
 
         try:
             r = requests.get(latest_url, stream=True)
