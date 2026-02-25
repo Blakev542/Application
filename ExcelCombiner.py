@@ -19,10 +19,17 @@ import requests, sys, os
 import subprocess
 
 
-
+APP_VERSION = "1.0.3"
 #VERSION 1.0.1 WORKING
 # UPDATED UI TO BE STYLIZED, FIXED SEARCH. 
-
+def get_latest_version():
+    try:
+        url = "https://api.github.com/repos/Blakev542/Application/releases/latest"
+        r = requests.get(url, timeout=5)
+        data = r.json()
+        return data["tag_name"]   # e.g. "v1.0.2"
+    except:
+        return None
 class ExcelCombinerApp:
     def __init__(self, root):
         
@@ -50,11 +57,27 @@ class ExcelCombinerApp:
     
     
     # ________________ AUTO UPDATE _________________ #
+
     def auto_update(self):
+        exe_path = os.path.abspath(sys.argv[0])
+        temp_path = exe_path + ".new"
+        updater_bat = exe_path + "_update.bat"
+
+        latest_version = get_latest_version()
+        if latest_version is None:
+            print("Could not check version")
+            return
+
+        # Strip "v" prefix
+        latest_version = latest_version.lstrip("v")
+
+        if latest_version == APP_VERSION:
+            print("Already latest version")
+            return  # ✅ STOP UPDATE LOOP
+
+        print(f"Updating {APP_VERSION} → {latest_version}")
+
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
-        exe_path = sys.executable
-        temp_path = exe_path.replace(".exe", "_new.exe")
-        updater_path = exe_path.replace(".exe", "_updater.bat")
 
         try:
             r = requests.get(latest_url, stream=True)
@@ -63,17 +86,16 @@ class ExcelCombinerApp:
                     for chunk in r.iter_content(1024 * 1024):
                         f.write(chunk)
 
-                # Create updater batch file
-                with open(updater_path, "w") as f:
+                with open(updater_bat, "w") as f:
                     f.write(f"""
     @echo off
-    timeout /t 2 /nobreak >nul
+    timeout /t 3 /nobreak >nul
     move /y "{temp_path}" "{exe_path}"
     start "" "{exe_path}"
     del "%~f0"
     """)
 
-                subprocess.Popen(["cmd", "/c", updater_path], shell=True)
+                subprocess.Popen(["cmd", "/c", updater_bat], shell=True)
                 sys.exit()
 
         except Exception as e:
