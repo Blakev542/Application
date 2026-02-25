@@ -54,6 +54,7 @@ class ExcelCombinerApp:
         latest_url = "https://github.com/Blakev542/Application/releases/latest/download/ExcelCombiner.exe"
         exe_path = sys.executable
         temp_path = exe_path.replace(".exe", "_new.exe")
+        updater_path = exe_path.replace(".exe", "_updater.bat")
 
         try:
             r = requests.get(latest_url, stream=True)
@@ -62,17 +63,17 @@ class ExcelCombinerApp:
                     for chunk in r.iter_content(1024 * 1024):
                         f.write(chunk)
 
-                # launch updater helper
-                subprocess.Popen([sys.executable, "-c",
-                    f"""
-                import time, os
-                time.sleep(1)
-                os.replace(r'{temp_path}', r'{exe_path}')
-                # Optionally delete temp or backup files if needed
-                # os.remove(r'{temp_path}')  # temp_path is already replaced
-                os.startfile(r'{exe_path}')
-                """
-                ])
+                # Create updater batch file
+                with open(updater_path, "w") as f:
+                    f.write(f"""
+    @echo off
+    timeout /t 2 /nobreak >nul
+    move /y "{temp_path}" "{exe_path}"
+    start "" "{exe_path}"
+    del "%~f0"
+    """)
+
+                subprocess.Popen(["cmd", "/c", updater_path], shell=True)
                 sys.exit()
 
         except Exception as e:
