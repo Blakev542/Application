@@ -415,6 +415,6 @@ root = ctk.CTk()
 app = ExcelCombinerApp(root)
 root.update()
 root.state("zoomed")
-root.after(3000, app.auto_update)
+
 root.mainloop()
 
