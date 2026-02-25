@@ -19,6 +19,9 @@ import requests, sys, os
 import subprocess
 
 
+APP_VERSION = "1.0.3"
+#VERSION 1.0.1 WORKING
+# UPDATED UI TO BE STYLIZED, FIXED SEARCH. 
 
 class ExcelCombinerApp:
     def __init__(self, root):
@@ -46,7 +49,7 @@ class ExcelCombinerApp:
 
     
     
-    
+
             # ---------------- UI ----------------
 
     def build_ui(self):
