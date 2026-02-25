@@ -25,7 +25,7 @@ import subprocess
 
 class ExcelCombinerApp:
     def __init__(self, root):
-        self.auto_update()
+        
         self.root = root
         self.root.title("Excel Column Combiner")
         self.files = []
@@ -443,4 +443,6 @@ root = ctk.CTk()
 app = ExcelCombinerApp(root)
 root.update()
 root.state("zoomed")
+root.after(3000, app.auto_update)
 root.mainloop()
+
